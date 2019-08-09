@@ -402,7 +402,16 @@ class DateRangePicker extends BemMixin {
     return true;
   };
 
-  moveBack = () => {
+  moveBack = (e) => {
+    const {stopPaginationPropagation} = this.props
+
+    console.log({stopPaginationPropagation})
+
+    if (stopPaginationPropagation) {
+      e.stopPropagation()
+      e.preventDefault()
+    }
+
     let monthDate;
 
     if (this.canMoveBack()) {
@@ -522,7 +531,7 @@ class DateRangePicker extends BemMixin {
       onUnHighlightDate: this.onUnHighlightDate,
       dateRangesForDate: this.dateRangesForDate,
       dateComponent: CalendarDate,
-      locale: this.props.locale,
+      locale: this.props.locale
     };
 
     return <CalendarMonth {...props} />;
